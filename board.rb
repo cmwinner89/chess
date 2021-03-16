@@ -1,12 +1,11 @@
-require_relative "./piece.rb"
+require_relative "piece"
 class Board
 
     attr_reader :rows
     def initialize
         #potentially refactor as its own method
-        @rows = Array.new(2) {Array.new(8) {Piece.new}}
-        @rows += Array.new(6) {Array.new(8) }
-        @rows += Array.new(2) {Array.new(8) {Piece.new}}
+        @rows = Array.new(8) {Array.new(8, nil)}
+        fill_board
     end
 
     def [](pos)
@@ -31,5 +30,11 @@ class Board
 
         self[end_pos] = self[start_pos]
         self[start_pos] = nil
+    end
+
+    private
+    def fill_board
+        #populate your board
+
     end
 end
