@@ -59,127 +59,17 @@ class Piece
     end
 end
 
-module Slideable
-    #Constants
-    #2d arrays of those directions
-    HORIZONTAL_DIRS = [ [1,0], [0,1], [-1,0], [0,-1] ]
-    DIAGONAL_DIRS = [ [1,1], [1,-1], [-1,1], [-1,-1] ]
-    
-    def moves(dirs)
-        #iterate through the constant arrays
-        #try to get all the moves thats possible for the current pos
-        movs = []
-        
-        move_dirs.each do |dir|
-            dx, dy = dir
-            movs += grow_unblocked_moves_in_dir(dx,dy)
-        end
-
-        return movs
-    end
-
-    private
-    def move_dirs
-        #raise an error
-        #we need it to make sure dev implements it in rook
-        raise "You need to override move_dirs in your piece classes"
-    end
-
-    def grow_unblocked_moves_in_dir(dx,dy)
-        dirmovs = []
-        dir = [dx,dy]
-        x,y = self.pos
-        until x+dx > 7 || y+dy > 7 || x+dx < 0 || y+dy < 0 || !@board[x +dx][y+dy].empty? 
-            if @board[x +dx][y+dy].color != @board[x][y].color
-                dirmovs << [x+dx, y+dy]
-                dx += dir[0]
-                dy += dir[1]
-            end
-        end
-        return dirmovs
-    end
-end
-
-class Rook < Piece
-    include Slideable
-
-    def symbol
-        'rook'.colorize(color)
-    end
-    private
-    #Rook.move_dirs returns
-    #horiz/vertical]
-    def move_dirs
-        # self.valid_moves && Slideable.moves
-        # then we can move there
-
-        #dont have to think too much
-        #returns the constant variables
-
-        # the constants are availiable to rook
-        # rook can use the constants and public methods
-        HORIZONTAL_DIRS
-    end
-end
 
 
 
-class Bishop < Piece
-    include Slideable
-
-    def symbol
-        'bishop'.colorize(color)
-    end
-
-    def move_dirs
-        DIAGONAL_DIRS
-    end
-end
-
-class Queen < Piece
-    include Slideable
-
-    def symbol
-        'queen'.colorize(color)
-    end
-
-    def move_dirs
-        HORIZONTAL_DIRS + DIAGONAL_DIRS
-    end
-end
-
-module Stepable
-    def moves
-    end
-
-    private
-    def move_diffs
-        raise "Unimplemented Method Error"
-    end
-end
-
-class Knight < Piece
-    include Stepable
-
-    def move_diffs
-        # array of the 8 things a knight can do
-    end
-end
-
-class King < Piece
-    include Stepable
-
-    def move_diffs
-        # array of the 8 things a king can do
-    end
-end
 
 
 
-class Pawn < Piece
-  
-end
 
-class NullPiece < Piece
-    
-end
+
+
+
+
+
+
+
