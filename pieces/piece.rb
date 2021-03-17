@@ -1,6 +1,8 @@
+require "colorize"
+
 class Piece
 
-    attr_reader :pos
+    attr_reader :pos, :color
 
     def initialize(color, board, pos)
         @color = color
@@ -87,10 +89,12 @@ module Slideable
         dirmovs = []
         dir = [dx,dy]
         x,y = self.pos
-        until x+dx > 7 || y+dy > 7 || x+dx < 0 || y+dy < 0
-            dirmovs << [x+dx, y+dy]
-            dx += dir[0]
-            dy += dir[1]
+        until x+dx > 7 || y+dy > 7 || x+dx < 0 || y+dy < 0 || !@board[x +dx][y+dy].empty? 
+            if @board[x +dx][y+dy].color != @board[x][y].color
+                dirmovs << [x+dx, y+dy]
+                dx += dir[0]
+                dy += dir[1]
+            end
         end
         return dirmovs
     end
@@ -99,6 +103,9 @@ end
 class Rook < Piece
     include Slideable
 
+    def symbol
+        'rook'.colorize(color)
+    end
     private
     #Rook.move_dirs returns
     #horiz/vertical]
@@ -120,6 +127,10 @@ end
 class Bishop < Piece
     include Slideable
 
+    def symbol
+        'bishop'.colorize(color)
+    end
+
     def move_dirs
         DIAGONAL_DIRS
     end
@@ -127,13 +138,24 @@ end
 
 class Queen < Piece
     include Slideable
+
+    def symbol
+        'queen'.colorize(color)
+    end
+
     def move_dirs
         HORIZONTAL_DIRS + DIAGONAL_DIRS
     end
 end
 
 module Stepable
+    def moves
+    end
 
+    private
+    def move_diffs
+        raise "Unimplemented Method Error"
+    end
 end
 
 class Knight < Piece
