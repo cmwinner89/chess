@@ -45,11 +45,50 @@ class Board
     def valid_pos?(pos)
         x, y =pos
         if x > 7 || y > 7 || x < 0 || y < 0
-            return true
+            return false
+        end
+        true
+    end
+
+    def in_check?(color)
+        #find pos of king on board
+        king = nil
+        @rows.each_with_index do |row, r_idx|
+            row.each_with_index do |col, c_idx|
+                piece = @rows[r_idx][c_idx]
+                if piece.is_a?(King) && piece.color == color
+                    king = piece
+                end
+            end
+        end
+
+        @rows.each_with_index do |row, r_idx|
+            row.each_with_index do |col, c_idx|
+                piece = @rows[r_idx][c_idx]
+                if piece.color != king.color && piece.moves.include?(king.pos)
+                    return true
+                end
+            end
         end
         false
     end
-    
+
+    def checkmate?(color)
+        # in_check? && valid_moves.empty?
+        king = nil
+        @rows.each_with_index do |row, r_idx|
+            row.each_with_index do |col, c_idx|
+                piece = @rows[r_idx][c_idx]
+                if piece.is_a?(King) && piece.color == color
+                    king = piece
+                end
+            end
+        end
+
+        #### UNFINISHED
+        return in_check? && king.moves.empty?
+    end
+
     private
     def fill_board
         #populate your board
@@ -80,20 +119,15 @@ class Board
         self[[7, 7]] = Rook.new(:white, self, [7, 7])
 
         #set white pawns 
-        # 8.times do |i|
-        #     self[[6,i]] = Pawn.new(:white, self, [6, i]) 
-        # end
+        8.times do |i|
+            self[[6,i]] = Pawn.new(:white, self, [6, i]) 
+        end
 
         #Set null pieces on the board
-        (2..6).each do |i|
+        (2..5).each do |i|
             (0..7).each do |j|
                 self[[i, j]] = NullPiece.instance
             end
         end
-    end
-
-    
-    def in_check?(color)
-
     end
 end

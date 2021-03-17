@@ -43,5 +43,10 @@ module Slideable
             end
         end
         return dirmovs
+
+
+        #valid_pos
+
+        #
     end
 end

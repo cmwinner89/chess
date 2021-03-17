@@ -7,9 +7,9 @@ module Stepable
             dx = diff[0]
             dy = diff[1]
 
-            if x+dx > 7 || y+dy > 7 || x+dx < 0 || y+dy < 0
+            if !@board.valid_pos?([x+dx, y+dy])
                 #do nothing
-            elsif   @board[x][y].color == @board[x+dx][y+dy].color
+            elsif @board[[x,y]].color == @board[[x+dx,y+dy]].color
                 #do nothing
             else
                 movs << [x+dx, y+dy]
