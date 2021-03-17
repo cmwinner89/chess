@@ -4,7 +4,7 @@ class Queen < Piece
     include Slideable
 
     def symbol
-        'queen'.colorize(color)
+        '♛'.colorize(color)
     end
 
     def move_dirs

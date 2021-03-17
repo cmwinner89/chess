@@ -7,6 +7,10 @@ class NullPiece < Piece
 
     def initialize
         color = nil
-        symbol = nil
+        symbol = '_'
+    end
+
+    def empty?
+        return true
     end
 end

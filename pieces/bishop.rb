@@ -4,7 +4,7 @@ class Bishop < Piece
     include Slideable
 
     def symbol
-        'bishop'.colorize(color)
+        '♝'.colorize(color)
     end
 
     def move_dirs
