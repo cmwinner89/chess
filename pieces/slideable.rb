@@ -5,7 +5,9 @@ module Slideable
     HORIZONTAL_DIRS = [ [1,0], [0,1], [-1,0], [0,-1] ]
     DIAGONAL_DIRS = [ [1,1], [1,-1], [-1,1], [-1,-1] ]
     
-    def moves(dirs)
+    def moves
+        #should not take in an arguement
+        # p move_dirs
         #iterate through the constant arrays
         #try to get all the moves thats possible for the current pos
         movs = []
@@ -29,11 +31,15 @@ module Slideable
         dirmovs = []
         dir = [dx,dy]
         x,y = self.pos
-        until x+dx > 7 || y+dy > 7 || x+dx < 0 || y+dy < 0 || !@board[x +dx][y+dy].empty? 
-            if @board[x +dx][y+dy].color != @board[x][y].color
-                dirmovs << [x+dx, y+dy]
-                dx += dir[0]
-                dy += dir[1]
+      
+        until  !@board.valid_pos?([x+dx, y+dy])|| !@board[[x +dx, y+dy]].empty? 
+        #until its a valid position or 
+            dx += dir[0]
+            dy += dir[1]
+            if @board.valid_pos?([x+dx, y+dy])
+                if @board[[x +dx, y+dy]].color != @board[[x, y]].color
+                    dirmovs << [x+dx, y+dy]    
+                end
             end
         end
         return dirmovs

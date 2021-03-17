@@ -4,7 +4,7 @@ class King < Piece
     include Stepable
 
     def symbol
-        "♚".colorize(color)
+        " ♚ ".colorize(color)
     end
 
     protected

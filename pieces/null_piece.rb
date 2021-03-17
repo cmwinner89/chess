@@ -6,8 +6,8 @@ class NullPiece < Piece
     attr_reader :color, :symbol
 
     def initialize
-        color = nil
-        symbol = '_'
+        @color = nil
+        @symbol = ' _ '
     end
 
     def empty?

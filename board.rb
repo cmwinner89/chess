@@ -6,6 +6,8 @@ require_relative "./pieces/knight"
 require_relative "./pieces/king"
 require_relative "./pieces/pawn"
 require_relative "./pieces/null_piece"
+require_relative "display"
+require_relative "cursor"
 
 class Board
 
@@ -40,6 +42,14 @@ class Board
         self[start_pos] = nil
     end
 
+    def valid_pos?(pos)
+        x, y =pos
+        if x > 7 || y > 7 || x < 0 || y < 0
+            return true
+        end
+        false
+    end
+    
     private
     def fill_board
         #populate your board
@@ -70,15 +80,20 @@ class Board
         self[[7, 7]] = Rook.new(:white, self, [7, 7])
 
         #set white pawns 
-        8.times do |i|
-            self[[6,i]] = Pawn.new(:white, self, [6, i]) 
-        end
+        # 8.times do |i|
+        #     self[[6,i]] = Pawn.new(:white, self, [6, i]) 
+        # end
 
         #Set null pieces on the board
-        (2..5).each do |i|
+        (2..6).each do |i|
             (0..7).each do |j|
                 self[[i, j]] = NullPiece.instance
             end
         end
+    end
+
+    
+    def in_check?(color)
+
     end
 end
