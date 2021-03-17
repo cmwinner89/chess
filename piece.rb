@@ -76,13 +76,13 @@ module Slideable
         return movs
     end
 
+    private
     def move_dirs
         #raise an error
         #we need it to make sure dev implements it in rook
         raise "You need to override move_dirs in your piece classes"
     end
 
-    private
     def grow_unblocked_moves_in_dir(dx,dy)
         dirmovs = []
         dir = [dx,dy]
